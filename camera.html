@@ -45,39 +45,4 @@
             });
 
         // Capture the image
-        captureButton.addEventListener('click', () => {
-            const context = canvas.getContext('2d');
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-            // Convert to image and display
-            const imageData = canvas.toDataURL('image/png');
-            photo.src = imageData;
-            photo.style.display = 'block';
-        });
-
-        const languageToggle = document.getElementById('languageToggle');
-        const headerText = document.getElementById('headerText');
-
-        function setLanguage(lang) {
-            if (lang === 'th') {
-                headerText.textContent = 'ถ่ายรูป';
-                languageToggle.textContent = 'English';
-                localStorage.setItem('language', 'th');
-            } else {
-                headerText.textContent = 'Take a Picture';
-                languageToggle.textContent = 'ภาษาไทย';
-                localStorage.setItem('language', 'en');
-            }
-        }
-
-        languageToggle.addEventListener('click', () => {
-            const currentLanguage = localStorage.getItem('language') || 'en';
-            setLanguage(currentLanguage === 'en' ? 'th' : 'en');
-        });
-
-        // Set the initial language based on local storage
-        const initialLanguage = localStorage.getItem('language') || 'en';
-        setLanguage(initialLanguage);
-    </script>
-</body>
-</html>
+        captureButton.add

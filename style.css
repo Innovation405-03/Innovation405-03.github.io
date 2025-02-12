@@ -145,3 +145,23 @@ button:hover {
     background: #FF5500;
     color: #FFF;
 }
+/* Specific styles for index.html */
+.index-content h1 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #0066CC;
+    margin-bottom: 20px;
+}
+.index-content p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+.index-content ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+.index-content ul li {
+    font-size: 18px;
+    margin-bottom: 10px;
+}

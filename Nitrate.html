@@ -88,8 +88,25 @@
     <div class="header">Nitrate Levels</div>
     <div class="content">
         <h1>Nitrate Levels in Samples</h1>
-        <p>Details about the nitrate levels will be displayed here.</p>
+        <p id="nitrateDetails">Details about the nitrate levels will be displayed here.</p>
+        <button onclick="saveData()">Save Data</button>
     </div>
     <div class="footer">&copy; 2025 AI Color Detector. All Rights Reserved.</div>
+    <script>
+        function saveData() {
+            const details = document.getElementById('nitrateDetails').innerText;
+            localStorage.setItem('nitrateDetails', details);
+            alert('Data saved!');
+        }
+
+        function loadData() {
+            const details = localStorage.getItem('nitrateDetails');
+            if (details) {
+                document.getElementById('nitrateDetails').innerText = details;
+            }
+        }
+
+        window.onload = loadData;
+    </script>
 </body>
 </html>

@@ -60,6 +60,23 @@ body {
     background: #FF5500;
     color: #FFF;
 }
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+.hamburger div {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 4px 0;
+    transition: 0.4s;
+}
+.navbar ul {
+    display: flex;
+    flex-direction: column;
+}
 .header {
     position: fixed;
     top: 0;
@@ -180,16 +197,15 @@ button:hover {
         position: relative;
     }
     .navbar ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+    }
+    .navbar ul.active {
         display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
     }
-    .navbar ul li {
-        flex: 1 1 50%;
-        margin: 0;
-    }
-    .navbar .language-toggle {
-        margin-top: 10px;
+    .navbar .hamburger {
+        display: flex;
     }
     .header {
         left: 0;

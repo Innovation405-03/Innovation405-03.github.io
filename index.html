@@ -9,6 +9,11 @@
 <body>
     <div class="navbar">
         <h2>AI Color & Nitrate Detector</h2>
+        <div class="hamburger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="Nitrate.html">Nitrate</a></li>
@@ -84,6 +89,11 @@
         // Set the initial language based on local storage
         const initialLanguage = localStorage.getItem('language') || 'en';
         setLanguage(initialLanguage);
+
+        function toggleMenu() {
+            const navbarUl = document.querySelector('.navbar ul');
+            navbarUl.classList.toggle('active');
+        }
     </script>
 </body>
 </html>

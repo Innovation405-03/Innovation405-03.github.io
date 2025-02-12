@@ -10,6 +10,11 @@
 <body>
 <div class="navbar">
     <h2>AI Color Detector</h2>
+    <div class="hamburger" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
     <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="Nitrate.html">Nitrate</a></li>
@@ -51,32 +56,4 @@
         const languageToggle = document.getElementById('languageToggle');
         const headerText = document.getElementById('headerText');
         const colorValue = document.getElementById('colorValue');
-        const nitrateValue = document.getElementById('nitrateValue');
-
-        function setLanguage(lang) {
-            if (lang === 'th') {
-                headerText.textContent = 'เครื่องมือวิเคราะห์สี';
-                colorValue.textContent = 'สี: N/A';
-                nitrateValue.textContent = 'ระดับไนเตรท: N/A';
-                languageToggle.textContent = 'English';
-                localStorage.setItem('language', 'th');
-            } else {
-                headerText.textContent = 'Color Detection Tool';
-                colorValue.textContent = 'Color: N/A';
-                nitrateValue.textContent = 'Nitrate Level: N/A';
-                languageToggle.textContent = 'ภาษาไทย';
-                localStorage.setItem('language', 'en');
-            }
-        }
-
-        languageToggle.addEventListener('click', () => {
-            const currentLanguage = localStorage.getItem('language') || 'en';
-            setLanguage(currentLanguage === 'en' ? 'th' : 'en');
-        });
-
-        // Set the initial language based on local storage
-        const initialLanguage = localStorage.getItem('language') || 'en';
-        setLanguage(initialLanguage);
-    </script>
-</body>
-</html>
+        const nitrateValue = document.getElementById('nitrateValue

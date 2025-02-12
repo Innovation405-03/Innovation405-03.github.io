@@ -92,8 +92,25 @@
     <div class="content">
         <h1>Welcome to the Color Detection System</h1>
         <p>This system made for you to analyze colors and detect nitrate levels in samples.</p>
+        <button onclick="saveData()">Save Data</button>
     </div>
 
     <div class="footer">&copy; 2025 AI Color Detector. All Rights Reserved.</div>
+    <script>
+        function saveData() {
+            const content = document.querySelector('.content').innerHTML;
+            localStorage.setItem('homeContent', content);
+            alert('Data saved!');
+        }
+
+        function loadData() {
+            const content = localStorage.getItem('homeContent');
+            if (content) {
+                document.querySelector('.content').innerHTML = content;
+            }
+        }
+
+        window.onload = loadData;
+    </script>
 </body>
 </html>

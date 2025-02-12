@@ -9,11 +9,6 @@
 <body>
     <div class="navbar">
         <h2>NCF Nitrate Detector</h2>
-        <div class="hamburger" onclick="toggleMenu()">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="Nitrate.html">Nitrate</a></li>
@@ -28,58 +23,10 @@
     <div class="header" id="headerText">Nitrate Levels</div>
     <div class="content">
         <h1 id="nitrateLevelsTitle">Nitrate Levels in Samples</h1>
-        <div class="card">
-            <h2>Understanding Nitrate Levels</h2>
-            <p id="nitrateLevelsDetails">Nitrate levels in samples are crucial for various scientific analyses. Our system provides detailed insights into nitrate concentrations, helping you make informed decisions.</p>
-        </div>
-        <div class="card">
-            <h2>Real-time Monitoring</h2>
-            <p>Monitor nitrate levels in real-time with our advanced detection system. Get instant feedback and ensure the quality of your samples.</p>
-        </div>
-        <div class="card">
-            <h2>Accurate Results</h2>
-            <p>Our AI-driven technology ensures that you receive the most accurate and reliable nitrate level readings, aiding your research and analysis.</p>
-        </div>
+        <p id="nitrateLevelsDetails">Details about the nitrate levels will be displayed here.</p>
     </div>
-    <div class="footer">&copy; 2025 AI Color & Nitrate Detector. All Rights Reserved.</div>
+    <div class="footer">&copy; 2025 AI Color Detector. All Rights Reserved.</div>
 
-    <script>
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-        const languageToggle = document.getElementById('languageToggle');
-        const headerText = document.getElementById('headerText');
-        const nitrateLevelsTitle = document.getElementById('nitrateLevelsTitle');
-        const nitrateLevelsDetails = document.getElementById('nitrateLevelsDetails');
-
-        function setLanguage(lang) {
-            if (lang === 'th') {
-                headerText.textContent = 'ระดับไนเตรท';
-                nitrateLevelsTitle.textContent = 'ระดับไนเตรทในตัวอย่าง';
-                nitrateLevelsDetails.textContent = 'รายละเอียดเกี่ยวกับระดับไนเตรทจะแสดงที่นี่';
-                languageToggle.textContent = 'English';
-                localStorage.setItem('language', 'th');
-            } else {
-                headerText.textContent = 'Nitrate Levels';
-                nitrateLevelsTitle.textContent = 'Nitrate Levels in Samples';
-                nitrateLevelsDetails.textContent = 'Nitrate levels in samples are crucial for various scientific analyses. Our system provides detailed insights into nitrate concentrations, helping you make informed decisions.';
-                languageToggle.textContent = 'ภาษาไทย';
-                localStorage.setItem('language', 'en');
-            }
-        }
-
-        languageToggle.addEventListener('click', () => {
-            const currentLanguage = localStorage.getItem('language') || 'en';
-            setLanguage(currentLanguage === 'en' ? 'th' : 'en');
-        });
-
-        // Set the initial language based on local storage
-        const initialLanguage = localStorage.getItem('language') || 'en';
-        setLanguage(initialLanguage);
-
-        function toggleMenu() {
-            const navbarUl = document.querySelector('.navbar ul');
-            navbarUl.classList.toggle('active');
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

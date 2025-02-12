@@ -34,7 +34,7 @@
             margin-top: 20px;
         }
         .navbar ul li {
-            padding: 20px;
+            padding: 15px;
             text-align: center;
         }
         .navbar ul li a {
@@ -126,4 +126,18 @@
             .then(stream => {
                 video.srcObject = stream;
             })
-            .catch(error)
+            .catch(error => console.error("Error accessing camera: ", error));
+
+        // Capture the image
+        captureButton.addEventListener('click', () => {
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            // Convert to image and display
+            const imageData = canvas.toDataURL('image/png');
+            photo.src = imageData;
+            photo.style.display = 'block';
+        });
+    </script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Color Detector - Home</title>
+    <title>AI Color & Nitrate Detector - Home</title>
     <style>
         body { 
             font-family: Arial, sans-serif; 
@@ -75,25 +75,35 @@
     </style>
 </head>
 <body>
- <div class="navbar">
-    <h2>NCF Nitrate Detector</h2>
-    <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="Nitrate.html">Nitrate</a></li>
-        <li><a href="analysis.html">Analysis</a></li>
-        <li><a href="reports.html">Reports</a></li>
-        <li><a href="settings.html">Settings</a></li>
-    </ul>
-</div>
-
-
-    <div class="header">Welcome to NCF nitrate detector</div>
-
-    <div class="content">
-        <h1>Welcome to the Color Detection System</h1>
-        <p>This system made for you to analyze colors and detect nitrate levels in samples.</p>
+    <div class="navbar">
+        <h2>AI Color & Nitrate Detector</h2>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="Nitrate.html">Nitrate</a></li>
+            <li><a href="analysis.html">Analysis</a></li>
+            <li><a href="reports.html">Reports</a></li>
+            <li><a href="settings.html">Settings</a></li>
+        </ul>
     </div>
 
-    <div class="footer">&copy; 2025 AI Color Detector. All Rights Reserved.</div>
+    <div class="header">Welcome to the AI Color & Nitrate Detector</div>
+
+    <div class="content">
+        <h1>Welcome to the AI Color & Nitrate Detection System</h1>
+        <p>This system is designed to help you analyze colors and detect nitrate levels in various samples. It uses advanced AI algorithms to provide accurate and reliable results.</p>
+        <p>Features include:</p>
+        <ul>
+            <li>Real-time color detection</li>
+            <li>Nitrate level analysis</li>
+            <li>Comprehensive reports</li>
+            <li>Customizable settings</li>
+        </ul>
+    </div>
+
+    <div class="footer">&copy; <span id="currentYear"></span> AI Color & Nitrate Detector. All Rights Reserved.</div>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
 </body>
 </html>

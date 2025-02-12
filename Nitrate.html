@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nitrate Levels</title>
     <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            margin: 0; 
-            background-color: #f5f5f5;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: #f0f0f0;
             color: #333;
             display: flex;
             flex-direction: column;
@@ -17,7 +17,7 @@
         .navbar {
             width: 200px;
             height: 100vh;
-            background: #FF6600;
+            background: #FF8800;
             color: white;
             padding: 20px;
             box-sizing: border-box;
@@ -27,30 +27,32 @@
         }
         .navbar h2 {
             text-align: center;
+            margin-bottom: 20px;
         }
         .navbar ul {
             list-style: none;
             padding: 0;
-            margin-top: 20px;
         }
         .navbar ul li {
-            padding: 15px;
-            text-align: center;
+            margin-bottom: 15px;
         }
         .navbar ul li a {
             color: white;
             text-decoration: none;
             display: block;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.3s;
         }
         .navbar ul li a:hover {
-            background: #555;
+            background: #FF5500;
         }
         .header {
             position: fixed;
             top: 0;
             left: 200px;
             width: calc(100% - 200px);
-            background: #0000FF;
+            background: #0055FF;
             color: white;
             padding: 15px;
             text-align: center;
@@ -61,22 +63,30 @@
             margin-left: 220px;
             margin-top: 60px;
             padding: 20px;
+            flex-grow: 1;
         }
         .footer {
-            background: #555;
+            background: #444;
             color: white;
             text-align: center;
             padding: 15px;
             margin-top: auto;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+        }
+        h1 {
+            margin-top: 0;
+        }
+        .card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
     <div class="navbar">
-        <h2>NCF Nitrate Detector</h2>
+        <h2>AI Color & Nitrate Detector</h2>
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="Nitrate.html">Nitrate</a></li>
@@ -85,11 +95,20 @@
             <li><a href="settings.html">Settings</a></li>
         </ul>
     </div>
+
     <div class="header">Nitrate Levels</div>
+
     <div class="content">
         <h1>Nitrate Levels in Samples</h1>
-        <p>Details about the nitrate levels will be displayed here.</p>
+        <div class="card">
+            <p>Details about the nitrate levels will be displayed here.</p>
+        </div>
     </div>
-    <div class="footer">&copy; 2025 AI Color Detector. All Rights Reserved.</div>
+
+    <div class="footer">&copy; <span id="currentYear"></span> AI Color & Nitrate Detector. All Rights Reserved.</div>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
 </body>
 </html>

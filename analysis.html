@@ -91,7 +91,7 @@
             border: 1px solid #ddd;
             box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
         }
-        #colorValue, #nitrateValue, #reagentValue {
+        #colorValue, #nitrateValue {
             margin-top: 10px;
             font-size: 14px;
             color: #333;
@@ -126,11 +126,9 @@
         <button id="captureFromCamera">Capture from Camera</button>
         <video id="video" width="320" height="240" autoplay style="display:none;"></video>
         <canvas id="canvas" width="320" height="240" style="display:none;"></canvas>
-        <input type="text" id="reagentInput" placeholder="Enter reagent used">
         <div id="colorBox"></div>
         <p id="colorValue">Color: N/A</p>
         <p id="nitrateValue">Nitrate Level: N/A</p>
-        <p id="reagentValue">Reagent: N/A</p>
     </div>
     <div class="footer">&copy; 2025 AI Color Detector. All Rights Reserved.</div>
     <script>
@@ -140,7 +138,6 @@
                 .then(data => {
                     document.getElementById('colorValue').innerText = `Color: ${data.color}`;
                     document.getElementById('nitrateValue').innerText = `Nitrate Level: ${data.nitrate}`;
-                    document.getElementById('reagentValue').innerText = `Reagent: ${data.reagent}`;
                     document.getElementById('colorBox').style.backgroundColor = data.color;
                 })
                 .catch(error => console.error('Error fetching data:', error));

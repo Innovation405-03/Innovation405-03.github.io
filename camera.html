@@ -37,6 +37,7 @@
         <button id="capture">Take Picture</button>
         <canvas id="canvas" width="320" height="240"></canvas>
         <img id="photo" alt="Captured Image" style="display:none;">
+        <button onclick="saveData()">Save Data</button>
     </div>
     <div class="footer">&copy; 2025 AI Color Detector. All Rights Reserved.</div>
     <script>
@@ -64,6 +65,22 @@
             photo.src = imageData;
             photo.style.display = 'block';
         });
+
+        function saveData() {
+            const imageData = canvas.toDataURL('image/png');
+            localStorage.setItem('capturedImage', imageData);
+            alert('Data saved!');
+        }
+
+        function loadData() {
+            const imageData = localStorage.getItem('capturedImage');
+            if (imageData) {
+                photo.src = imageData;
+                photo.style.display = 'block';
+            }
+        }
+
+        window.onload = loadData;
     </script>
 </body>
 </html>

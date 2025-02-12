@@ -105,7 +105,7 @@
 <div class="navbar">
     <h2>AI Color Detector</h2>
     <ul>
-        <li><a href="home.html">Home</a></li>
+        <li><a href="index.html">Home</a></li>
         <li><a href="Nitrate.html">Nitrate</a></li>
         <li><a href="analysis.html">Analysis</a></li>
         <li><a href="reports.html">Reports</a></li>
@@ -124,7 +124,6 @@
         <p id="colorValue">Color: N/A</p>
         <p id="nitrateValue">Nitrate Level: N/A</p>
         <p id="reagentValue">Reagent: N/A</p>
-        <button onclick="saveData()">Save Data</button>
     </div>
     <div class="footer">&copy; 2025 AI Color Detector. All Rights Reserved.</div>
     <script>
@@ -141,35 +140,7 @@
         }
         
         setInterval(updateData, 5000);
-        updateData();
-
-        function saveData() {
-            const color = document.getElementById('colorValue').innerText;
-            const nitrate = document.getElementById('nitrateValue').innerText;
-            const reagent = document.getElementById('reagentValue').innerText;
-            localStorage.setItem('colorValue', color);
-            localStorage.setItem('nitrateValue', nitrate);
-            localStorage.setItem('reagentValue', reagent);
-            alert('Data saved!');
-        }
-
-        function loadData() {
-            const color = localStorage.getItem('colorValue');
-            const nitrate = localStorage.getItem('nitrateValue');
-            const reagent = localStorage.getItem('reagentValue');
-            if (color) {
-                document.getElementById('colorValue').innerText = color;
-                document.getElementById('colorBox').style.backgroundColor = color;
-            }
-            if (nitrate) {
-                document.getElementById('nitrateValue').innerText = nitrate;
-            }
-            if (reagent) {
-                document.getElementById('reagentValue').innerText = reagent;
-            }
-        }
-
-        window.onload = loadData;
+        updateData(); 
     </script>
 </body>
 </html>

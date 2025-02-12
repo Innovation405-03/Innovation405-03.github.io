@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const feature2 = document.getElementById('feature2');
     const feature3 = document.getElementById('feature3');
     const feature4 = document.getElementById('feature4');
+    const nitrateReports = document.getElementById('nitrateReports');
 
     function setLanguage(lang) {
         if (lang === 'th') {
@@ -38,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             if (headerText) headerText.textContent = 'Welcome to the AI Color & Nitrate Detector';
             if (welcomeText) welcomeText.textContent = 'Welcome to the AI Color & Nitrate Detection System';
-            if (descriptionText) descriptionText.textContent = 'This system is designed to help you analyze colors and detect nitrate levels in various samples. It uses advanced AI algorithms to provide accurate and reliable results.';
+            if (descriptionText) descriptionText.content = 'This system is designed to help you analyze colors and detect nitrate levels in various samples. It uses advanced AI algorithms to provide accurate and reliable results.';
             if (featuresText) featuresText.textContent = 'Features include:';
             if (feature1) feature1.textContent = 'Real-time color detection';
             if (feature2) feature2.textContent = 'Nitrate level analysis';
@@ -74,19 +75,89 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Specific to analysis.html
     if (document.getElementById('fileInput')) {
-        function updateData() {
-            fetch('fetch_data.php')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('colorValue').innerText = `Color: ${data.color}`;
-                    document.getElementById('nitrateValue').innerText = `Nitrate Level: ${data.nitrate}`;
-                    document.getElementById('colorBox').style.backgroundColor = data.color;
-                })
-                .catch(error => console.error('Error fetching data:', error));
+        const fileInput = document.getElementById('fileInput');
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
+        const colorBox = document.getElementById('colorBox');
+        const colorValue = document.getElementById('colorValue');
+        const nitrateValue = document.getElementById('nitrateValue');
+
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        context.drawImage(img, 0, 0, img.width, img.height);
+                        const imageData = context.getImageData(0, 0, img.width, img.height);
+                        const color = getColorFromImage(imageData);
+                        colorBox.style.backgroundColor = color;
+                        colorValue.textContent = `Color: ${color}`;
+                        const nitrateLevel = getNitrateLevel(color);
+                        nitrateValue.textContent = `Nitrate Level: ${nitrateLevel}`;
+                        saveResultToLocalStorage(color, nitrateLevel);
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function getColorFromImage(imageData) {
+            const data = imageData.data;
+            let r = 0, g = 0, b = 0, count = 0;
+            for (let i = 0; i < data.length; i += 4) {
+                r += data[i];
+                g += data[i + 1];
+                b += data[i + 2];
+                count++;
+            }
+            r = Math.floor(r / count);
+            g = Math.floor(g / count);
+            b = Math.floor(b / count);
+            return `rgb(${r}, ${g}, ${b})`;
         }
-        
-        setInterval(updateData, 5000);
-        updateData();
+
+        function getNitrateLevel(color) {
+            if (color === 'rgb(255, 255, 0)') {
+                return 'High';
+            } else if (color === 'rgb(255, 165, 0)' || color === 'rgb(255, 192, 203)') {
+                return 'Medium';
+            } else if (color === 'rgb(139, 0, 0)') {
+                return 'None';
+            } else {
+                return 'Unknown';
+            }
+        }
+
+        function saveResultToLocalStorage(color, nitrateLevel) {
+            const results = JSON.parse(localStorage.getItem('nitrateResults')) || [];
+            const timestamp = new Date().toISOString();
+            results.push({ color, nitrateLevel, timestamp });
+            localStorage.setItem('nitrateResults', JSON.stringify(results));
+        }
+    }
+
+    // Specific to reports.html
+    if (document.getElementById('nitrateReports')) {
+        const nitrateReports = document.getElementById('nitrateReports');
+
+        function updateReports() {
+            const results = JSON.parse(localStorage.getItem('nitrateResults')) || [];
+            nitrateReports.innerHTML = results.map(result => `
+                <div class="report">
+                    <p>Color: ${result.color}</p>
+                    <p>Nitrate Level: ${result.nitrateLevel}</p>
+                    <p>Timestamp: ${new Date(result.timestamp).toLocaleString()}</p>
+                </div>
+            `).join('');
+        }
+
+        setInterval(updateReports, 5000);
+        updateReports();
     }
 
     // Specific to camera.html

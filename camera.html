@@ -4,96 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Take a Picture</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            background-color: #f0f0f0;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        .navbar {
-            width: 200px;
-            height: 100vh;
-            background: #FF7F11;
-            color: white;
-            padding: 20px;
-            box-sizing: border-box;
-            position: fixed;
-            top: 0;
-            left: 0;
-        }
-        .navbar h2 {
-            text-align: center;
-        }
-        .navbar ul {
-            list-style: none;
-            padding: 0;
-            margin-top: 20px;
-        }
-        .navbar ul li {
-            padding: 15px;
-            text-align: center;
-        }
-        .navbar ul li a {
-            color: white;
-            text-decoration: none;
-            display: block;
-            border-radius: 5px;
-            transition: background 0.3s;
-        }
-        .navbar ul li a:hover {
-            background: #FF5500;
-        }
-        .header {
-            position: fixed;
-            top: 0;
-            left: 200px;
-            width: calc(100% - 200px);
-            background: #0066CC;
-            color: white;
-            padding: 15px;
-            text-align: center;
-            font-size: 22px;
-            font-weight: bold;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .content {
-            margin-left: 220px;
-            margin-top: 60px;
-            padding: 20px;
-            flex-grow: 1;
-        }
-        video, canvas {
-            display: block;
-            margin: 10px auto;
-            max-width: 100%;
-        }
-        button {
-            display: block;
-            margin: 10px auto;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            background: #FF7F11;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            transition: background 0.3s;
-        }
-        button:hover {
-            background: #FF5500;
-        }
-        .footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 15px;
-            margin-top: auto;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="navbar">
@@ -105,9 +16,12 @@
             <li><a href="reports.html">Reports</a></li>
             <li><a href="settings.html">Settings</a></li>
         </ul>
+        <div class="language-toggle">
+            <button id="languageToggle">ภาษาไทย</button>
+        </div>
     </div>
     
-    <div class="header">Take a Picture</div>
+    <div class="header" id="headerText">Take a Picture</div>
     <div class="content">
         <video id="video" width="320" height="240" autoplay></video>
         <button id="capture">Take Picture</button>
@@ -126,7 +40,9 @@
             .then(stream => {
                 video.srcObject = stream;
             })
-            .catch(error => console.error("Error accessing camera: ", error));
+            .catch(error => {
+                console.error("Error accessing camera: ", error);
+            });
 
         // Capture the image
         captureButton.addEventListener('click', () => {
@@ -138,6 +54,30 @@
             photo.src = imageData;
             photo.style.display = 'block';
         });
+
+        const languageToggle = document.getElementById('languageToggle');
+        const headerText = document.getElementById('headerText');
+
+        function setLanguage(lang) {
+            if (lang === 'th') {
+                headerText.textContent = 'ถ่ายรูป';
+                languageToggle.textContent = 'English';
+                localStorage.setItem('language', 'th');
+            } else {
+                headerText.textContent = 'Take a Picture';
+                languageToggle.textContent = 'ภาษาไทย';
+                localStorage.setItem('language', 'en');
+            }
+        }
+
+        languageToggle.addEventListener('click', () => {
+            const currentLanguage = localStorage.getItem('language') || 'en';
+            setLanguage(currentLanguage === 'en' ? 'th' : 'en');
+        });
+
+        // Set the initial language based on local storage
+        const initialLanguage = localStorage.getItem('language') || 'en';
+        setLanguage(initialLanguage);
     </script>
 </body>
 </html>

@@ -98,14 +98,33 @@
         <h1>Nitrate Levels in Samples</h1>
         <div class="card">
             <h2>Details of Nitrate Levels</h2>
-            <p>Nitrate levels are important indicators in various scientific studies. Our system provides comprehensive details and accurate readings of nitrate levels in samples.</p>
+            <p id="nitrateDetails">Nitrate levels are important indicators in various scientific studies. Our system provides comprehensive details and accurate readings of nitrate levels in samples.</p>
         </div>
         <div class="card">
             <h2>Scientific Analysis</h2>
-            <p>Utilize our advanced tools to perform in-depth scientific analysis of nitrate levels, ensuring reliable and reproducible results.</p>
+            <p id="scientificAnalysis">Utilize our advanced tools to perform in-depth scientific analysis of nitrate levels, ensuring reliable and reproducible results.</p>
         </div>
         <div class="card">
             <h2>Data Insights</h2>
-            <p>Gain valuable insights from the data collected, enabling you to make informed decisions based on accurate and real-time information.</p>
+            <p id="dataInsights">Gain valuable insights from the data collected, enabling you to make informed decisions based on accurate and real-time information.</p>
         </div>
-   
+    </div>
+    <div class="footer">&copy; 2025 AI Color Detector. All Rights Reserved.</div>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        function updateContent() {
+            const nitrateDetails = localStorage.getItem('nitrateDetails') || 'Nitrate levels are important indicators in various scientific studies. Our system provides comprehensive details and accurate readings of nitrate levels in samples.';
+            const scientificAnalysis = localStorage.getItem('scientificAnalysis') || 'Utilize our advanced tools to perform in-depth scientific analysis of nitrate levels, ensuring reliable and reproducible results.';
+            const dataInsights = localStorage.getItem('dataInsights') || 'Gain valuable insights from the data collected, enabling you to make informed decisions based on accurate and real-time information.';
+
+            document.getElementById('nitrateDetails').textContent = nitrateDetails;
+            document.getElementById('scientificAnalysis').textContent = scientificAnalysis;
+            document.getElementById('dataInsights').textContent = dataInsights;
+        }
+
+        updateContent();
+    </script>
+</body>
+</html>

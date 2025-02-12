@@ -95,6 +95,9 @@ body {
     margin-top: 80px;
     padding: 20px;
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .footer {
     background: #333;
@@ -162,33 +165,6 @@ button {
 button:hover {
     background: #FF5500;
 }
-.index-content h1 {
-    font-size: 32px;
-    font-weight: bold;
-    color: #0000FF;
-    margin-bottom: 20px;
-    text-align: center;
-}
-.index-content p {
-    font-size: 18px;
-    line-height: 1.6;
-    margin-bottom: 20px;
-    text-align: center;
-}
-.index-content ul {
-    list-style-type: none;
-    padding-left: 0;
-    text-align: center;
-}
-.index-content ul li {
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-.index-content ul li::before {
-    content: '✔️';
-    margin-right: 8px;
-    color: #FF6600;
-}
 /* Responsive Design */
 @media (max-width: 768px) {
     .navbar {
@@ -230,11 +206,5 @@ button:hover {
     }
     .content {
         margin-top: 140px;
-    }
-    .index-content h1 {
-        font-size: 28px;
-    }
-    .index-content p, .index-content ul li {
-        font-size: 16px;
     }
 }

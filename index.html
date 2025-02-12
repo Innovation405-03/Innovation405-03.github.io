@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Color & Nitrate Detector - Home</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            background-color: #f0f0f0;
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            background-color: #f5f5f5;
             color: #333;
             display: flex;
             flex-direction: column;
@@ -17,7 +17,7 @@
         .navbar {
             width: 200px;
             height: 100vh;
-            background: #FF7F11;
+            background: #FF6600;
             color: white;
             padding: 20px;
             box-sizing: border-box;
@@ -41,44 +41,52 @@
             color: white;
             text-decoration: none;
             display: block;
-            border-radius: 5px;
-            transition: background 0.3s;
         }
         .navbar ul li a:hover {
-            background: #FF5500;
+            background: #555;
+        }
+        .navbar .language-toggle {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .navbar .language-toggle button {
+            background: #FFF;
+            color: #FF6600;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .navbar .language-toggle button:hover {
+            background: #FF6600;
+            color: #FFF;
         }
         .header {
             position: fixed;
             top: 0;
             left: 200px;
             width: calc(100% - 200px);
-            background: #0066CC;
+            background: #0000FF;
             color: white;
             padding: 15px;
             text-align: center;
-            font-size: 22px;
+            font-size: 20px;
             font-weight: bold;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .content {
             margin-left: 220px;
             margin-top: 60px;
             padding: 20px;
-            flex-grow: 1;
         }
         .footer {
-            background: #333;
+            background: #555;
             color: white;
             text-align: center;
             padding: 15px;
             margin-top: auto;
-        }
-        .card {
-            background: white;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            bottom: 0;
+            width: 100%;
         }
     </style>
 </head>
@@ -92,31 +100,74 @@
             <li><a href="reports.html">Reports</a></li>
             <li><a href="settings.html">Settings</a></li>
         </ul>
+        <div class="language-toggle">
+            <button id="languageToggle">ภาษาไทย</button>
+        </div>
     </div>
 
-    <div class="header">Welcome to AI Color & Nitrate Detector</div>
+    <div class="header" id="headerText">Welcome to the AI Color & Nitrate Detector</div>
 
     <div class="content">
-        <h1>Welcome to the AI Color & Nitrate Detection System</h1>
-        <p>This system is designed to help you analyze colors and detect nitrate levels in various samples. It uses advanced AI algorithms to provide accurate and reliable results.</p>
-        <div class="card">
-            <h2>Real-time Analysis</h2>
-            <p>Our AI system provides real-time color detection and nitrate level analysis, ensuring you get the most accurate results instantly.</p>
-        </div>
-        <div class="card">
-            <h2>Comprehensive Reports</h2>
-            <p>Generate detailed reports that help you understand the color and nitrate level data, with insights and recommendations for further actions.</p>
-        </div>
-        <div class="card">
-            <h2>Customizable Settings</h2>
-            <p>Tailor the system settings to your specific needs, whether you're conducting research or routine analysis.</p>
-        </div>
+        <h1 id="welcomeText">Welcome to the AI Color & Nitrate Detection System</h1>
+        <p id="descriptionText">This system is designed to help you analyze colors and detect nitrate levels in various samples. It uses advanced AI algorithms to provide accurate and reliable results.</p>
+        <p id="featuresText">Features include:</p>
+        <ul>
+            <li id="feature1">Real-time color detection</li>
+            <li id="feature2">Nitrate level analysis</li>
+            <li id="feature3">Comprehensive reports</li>
+            <li id="feature4">Customizable settings</li>
+        </ul>
     </div>
 
     <div class="footer">&copy; <span id="currentYear"></span> AI Color & Nitrate Detector. All Rights Reserved.</div>
 
     <script>
         document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        const languageToggle = document.getElementById('languageToggle');
+        const headerText = document.getElementById('headerText');
+        const welcomeText = document.getElementById('welcomeText');
+        const descriptionText = document.getElementById('descriptionText');
+        const featuresText = document.getElementById('featuresText');
+        const feature1 = document.getElementById('feature1');
+        const feature2 = document.getElementById('feature2');
+        const feature3 = document.getElementById('feature3');
+        const feature4 = document.getElementById('feature4');
+
+        function setLanguage(lang) {
+            if (lang === 'th') {
+                headerText.textContent = 'ยินดีต้อนรับสู่ AI Color & Nitrate Detector';
+                welcomeText.textContent = 'ยินดีต้อนรับสู่ระบบตรวจจับสีและไนเตรท AI';
+                descriptionText.textContent = 'ระบบนี้ออกแบบมาเพื่อช่วยคุณวิเคราะห์สีและตรวจจับระดับไนเตรทในตัวอย่างต่างๆ ระบบนี้ใช้ AI ขั้นสูงเพื่อให้ผลลัพธ์ที่แม่นยำและเชื่อถือได้';
+                featuresText.textContent = 'คุณสมบัติของระบบประกอบด้วย:';
+                feature1.textContent = 'การตรวจจับสีแบบเรียลไทม์';
+                feature2.textContent = 'การวิเคราะห์ระดับไนเตรท';
+                feature3.textContent = 'รายงานที่ครอบคลุม';
+                feature4.textContent = 'การตั้งค่าที่ปรับแต่งได้';
+                languageToggle.textContent = 'English';
+                localStorage.setItem('language', 'th');
+            } else {
+                headerText.textContent = 'Welcome to the AI Color & Nitrate Detector';
+                welcomeText.textContent = 'Welcome to the AI Color & Nitrate Detection System';
+                descriptionText.textContent = 'This system is designed to help you analyze colors and detect nitrate levels in various samples. It uses advanced AI algorithms to provide accurate and reliable results.';
+                featuresText.textContent = 'Features include:';
+                feature1.textContent = 'Real-time color detection';
+                feature2.textContent = 'Nitrate level analysis';
+                feature3.textContent = 'Comprehensive reports';
+                feature4.textContent = 'Customizable settings';
+                languageToggle.textContent = 'ภาษาไทย';
+                localStorage.setItem('language', 'en');
+            }
+        }
+
+        languageToggle.addEventListener('click', () => {
+            const currentLanguage = localStorage.getItem('language') || 'en';
+            setLanguage(currentLanguage === 'en' ? 'th' : 'en');
+        });
+
+        // Set the initial language based on local storage
+        const initialLanguage = localStorage.getItem('language') || 'en';
+        setLanguage(initialLanguage);
     </script>
 </body>
 </html>

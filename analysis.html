@@ -35,7 +35,7 @@
             margin-top: 20px;
         }
         .navbar ul li {
-            padding: 15px;
+            padding: 20px;
             text-align: center;
         }
         .navbar ul li a {
@@ -66,6 +66,7 @@
             align-items: center;
             justify-content: center;
             flex-grow: 1;
+            padding: 20px;
         }
         input, button {
             margin-bottom: 10px;
@@ -95,14 +96,11 @@
             display: none;
         }
         .footer {
-            background: #555;
+            background: #444;
             color: white;
             text-align: center;
             padding: 15px;
             margin-top: auto;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
         }
     </style>
 </head>
@@ -130,7 +128,7 @@
         <p id="nitrateValue">Nitrate Level: N/A</p>
         <p id="reagentValue">Reagent: N/A</p>
     </div>
-    <div class="footer">&copy; <span id="currentYear"></span> AI Color Detector. All Rights Reserved.</div>
+    <div class="footer">&copy; 2025 AI Color Detector. All Rights Reserved.</div>
     <script>
         function updateData() {
             fetch('fetch_data.php')

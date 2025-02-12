@@ -34,7 +34,7 @@
             margin-top: 20px;
         }
         .navbar ul li {
-            padding: 15px;
+            padding: 20px;
             text-align: center;
         }
         .navbar ul li a {
@@ -74,7 +74,7 @@
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
-            background: #FF8800;
+            background: #FF6600;
             color: white;
             border: none;
             border-radius: 5px;
@@ -84,14 +84,11 @@
             background: #FF5500;
         }
         .footer {
-            background: #555;
+            background: #444;
             color: white;
             text-align: center;
             padding: 15px;
             margin-top: auto;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
         }
     </style>
 </head>
@@ -114,7 +111,7 @@
         <canvas id="canvas" width="320" height="240"></canvas>
         <img id="photo" alt="Captured Image" style="display:none;">
     </div>
-    <div class="footer">&copy; <span id="currentYear"></span> AI Color Detector. All Rights Reserved.</div>
+    <div class="footer">&copy; 2025 AI Color Detector. All Rights Reserved.</div>
     <script>
         const video = document.getElementById('video');
         const canvas = document.getElementById('canvas');
@@ -140,8 +137,6 @@
             photo.src = imageData;
             photo.style.display = 'block';
         });
-
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
     </script>
 </body>
 </html>

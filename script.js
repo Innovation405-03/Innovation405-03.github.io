@@ -172,4 +172,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Access the user's camera
         navigator.mediaDevices.getUserMedia({ video: true })
-            .then(stream =>)
+            .then(stream => {
+                video.srcObject = stream;
+            })
+            .catch(error => {
+                console.error("Error accessing camera: ", error);
+            });
+
+        // Capture the image
+        captureButton.addEventListener('click', () => {
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0)

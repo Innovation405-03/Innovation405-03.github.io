@@ -198,9 +198,12 @@ button:hover {
     .header {
         font-size: 20px;
     }
-
+    .navbar{
+        position: inherit;
+    }
     .footer {
         padding: 10px;
+        position: inherit;
     }
 
     /* Adjust card width and margins for smaller screens */
@@ -223,11 +226,11 @@ button:hover {
 /* Specific styles for even smaller screens (smartphones) */
 @media (max-width: 400px) {
     .navbar {
-        position: fixed; /* Ensure navbar is fixed on small screens */
+        position: inherit; /* Ensure navbar is fixed on small screens */
     }
 
     .footer {
-        position: fixed; /* Ensure footer is fixed on small screens */
+        position: inherit; /* Ensure footer is fixed on small screens */
     }
 
     .navbar ul {

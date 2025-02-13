@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCF - Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="navbar">
+        <h2>NCF Menu</h2>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="analysis.html">Analysis</a></li>
+            <li><a href="reports.html">Reports</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </div>
+    <div class="content index-content">
+        <div class="card">
+            <h2 id="welcomeText">Welcome to the AI Color & Nitrate Detection System</h2>
+        </div>
+        <div class="card">
+            <p id="descriptionText">This system is designed to help you analyze colors and detect nitrate levels in various samples. It uses advanced AI algorithms to provide accurate and reliable results.</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; <span id="currentYear"></span>
+        <span>Innovation 405-03.</span>
+        <text>Princess Chulabhorn Science High School Nakhon Si Thammarat</text>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async function () {
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            // สถานที่ที่ไม่ต้องการฟังก์ชันการเปลี่ยนภาษา
+            const welcomeText = document.getElementById('welcomeText');
+            const descriptionText = document.getElementById('descriptionText');
+
+            // กำหนดข้อความต้อนรับและคำอธิบายเป็นภาษาอังกฤษ
+            if (welcomeText) welcomeText.textContent = 'Welcome to the AI Color & Nitrate Detection System';
+            if (descriptionText) descriptionText.textContent = 'This system is designed to help you analyze colors and detect nitrate levels in various samples. It uses advanced AI algorithms to provide accurate and reliable results.';
+            
+            // ฟังก์ชันสำหรับเมนู
+            if (document.querySelector('.navbar ul')) {
+                function toggleMenu() {
+                    const navbarUl = document.querySelector('.navbar ul');
+                    navbarUl.classList.toggle('active');
+                }
+                document.querySelector('.hamburger').addEventListener('click', toggleMenu);
+            }
+
+            // Specific to analysis.html
+            if (document.getElementById('fileInput')) {
+                const fileInput = document.getElementById('fileInput');
+                const canvas = document.getElementById('canvas');
+                const context = canvas.getContext('2d');
+                const colorBox = document.getElementById('colorBox');
+                const colorValue = document.getElementById('colorValue');
+                const nitrateValue = document.getElementById('nitrateValue');
+                const saveData = document.getElementById('saveData');
+
+                fileInput.addEventListener('change', (event) => {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            const img = new Image();
+                            img.onload = () => {
+                                canvas.width = img.width;
+                                canvas.height = img.height;
+                                context.drawImage(img, 0, 0, img.width, img.height);
+                                const imageData = context.getImageData(0, 0, img.width, img.height);
+
+                                // Run Python code using Pyodide to analyze the image
+                                analyzeImage(imageData).then(result => {
+                                    const color = result.mean_color;
+                                    const nitrateLevel = result.nitrate_level;
+
+                                    colorBox.style.backgroundColor = color;
+                                    colorValue.textContent = `Color: ${color}`;
+                                    nitrateValue.textContent = `Nitrate Level: ${nitrateLevel}`;
+
+                                    saveData.addEventListener('click', () => {
+                                        saveResultToLocalStorage(color, nitrateLevel);
+                                    });
+                                });
+                            };
+                            img.src = e.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+
+                function saveResultToLocalStorage(color, nitrateLevel) {
+                    const results = JSON.parse(localStorage.getItem('nitrateResults')) || [];
+                    const timestamp = new Date().toISOString();
+                    results.push({ color, nitrateLevel, timestamp });
+                    localStorage.setItem('nitrateResults', JSON.stringify(results));
+                }
+
+                async function analyzeImage(imageData) {
+                    // Python code to analyze the image
+                    const pythonCode = `
+                        import numpy as np
+                        from scipy.spatial import KDTree
+
+                        def rgb_to_hex(rgb):
+                            return '#{:02x}{:02x}{:02x}'.format(int(rgb[0]), int(rgb[1]), int(rgb[2]))
+
+                        beetroot_color = np.array([138, 43, 226])
+                        thresholds = {
+                            'High': np.array([255, 165, 0]),
+                            'Medium': [np.array([255, 192, 203]), np.array([255, 255, 0])]
+                        }
+
+                        data = np.frombuffer(imageData.data, dtype=np.uint8)
+                        data = data.reshape(-1, 4)[:, :3]
+
+                        mean_color = np.mean(data, axis=0)
+
+                        tree = KDTree([beetroot_color] + thresholds['High'].tolist() + thresholds['Medium'][0].tolist() + thresholds['Medium'][1].tolist())
+                        dist, index = tree.query(mean_color)
+
+                        if np.array_equal(tree.data[index], thresholds['High']):
+                            nitrate_level = 'High'
+                        elif np.array_equal(tree.data[index], thresholds['Medium'][0]) or np.array_equal(tree.data[index], thresholds['Medium'][1]):
+                            nitrate_level = 'Medium'
+                        else:
+                            nitrate_level = 'None'
+
+                        {
+                            'mean_color': rgb_to_hex(mean_color),
+                            'nitrate_level': nitrate_level
+                        }
+                    `;
+                    let result = await pyodide.runPythonAsync(pythonCode, { imageData: imageData });
+                    return result;
+                }
+            }
+
+            // Specific to reports.html
+            if (document.getElementById('nitrateReports')) {
+                const nitrateReports = document.getElementById('nitrateReports');
+
+                function updateReports() {
+                    const results = JSON.parse(localStorage.getItem('nitrateResults')) || [];
+                    nitrateReports.innerHTML = results.map(result => `
+                        <div class="report">
+                            <p>Color: ${result.color}</p>
+                            <p>Nitrate Level: ${result.nitrateLevel}</p>
+                            <p>Timestamp: ${new Date(result.timestamp).toLocaleString()}</p>
+                        </div>
+                    `).join('');
+                }
+
+                setInterval(updateReports, 5000);
+                updateReports();
+            }
+
+            // Specific to camera.html
+            if (document.getElementById('video')) {
+                const video = document.getElementById('video');
+                const canvas = document.getElementById('canvas');
+                const photo = document.getElementById('photo');
+                const captureButton = document.getElementById('capture');
+
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then(stream => {
+                        video.srcObject = stream;
+                    })
+                    .catch(error => {
+                        console.error("Error accessing camera: ", error);
+                    });
+
+                captureButton.addEventListener('click', () => {
+                    const context = canvas.getContext('2d');
+                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                    const imageData = canvas.toDataURL('image/png');
+                    photo.src = imageData;
+                    photo.style.display = 'block';
+                });
+            }
+
+            let pyodide = await loadPyodide();
+            await pyodide.loadPackage(['numpy', 'scipy']);
+        });
+    </script>
+</body>
+</html>

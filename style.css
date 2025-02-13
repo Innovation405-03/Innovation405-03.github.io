@@ -48,7 +48,7 @@ a {
     color: white;
     padding: 10px 20px;
     box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
-    position: fixed;
+    position: inherit;
     top: 0;
     left: 0;
     z-index: 1000;
@@ -110,7 +110,7 @@ a {
     color: white;
     text-align: center;
     padding: 20px;
-    position: fixed;
+    position: inherit;
     bottom: 0;
     width: 100%;
 }
@@ -198,12 +198,9 @@ button:hover {
     .header {
         font-size: 20px;
     }
-    .navbar{
-        position: inherit;
-    }
+
     .footer {
         padding: 10px;
-        position: inherit;
     }
 
     /* Adjust card width and margins for smaller screens */
@@ -226,11 +223,11 @@ button:hover {
 /* Specific styles for even smaller screens (smartphones) */
 @media (max-width: 400px) {
     .navbar {
-        position: inherit; /* Ensure navbar is fixed on small screens */
+        position: fixed; /* Ensure navbar is fixed on small screens */
     }
 
     .footer {
-        position: inherit; /* Ensure footer is fixed on small screens */
+        position: fixed; /* Ensure footer is fixed on small screens */
     }
 
     .navbar ul {

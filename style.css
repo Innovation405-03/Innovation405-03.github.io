@@ -67,8 +67,8 @@ body {
 }
 
 .navbar .language-toggle button:hover {
-    background: #0056b3;
-    color: white;
+    background: #ffffff;
+    color: #0056b3;
 }
 
 .header {

@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
     document.getElementById('currentYear').textContent = new Date().getFullYear();
 
     const languageToggle = document.getElementById('languageToggle');
@@ -182,4 +182,60 @@ document.addEventListener('DOMContentLoaded', function () {
         // Capture the image
         captureButton.addEventListener('click', () => {
             const context = canvas.getContext('2d');
-            context.drawImage(video, 0, 0)
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            // Convert to image and display
+            const imageData = canvas.toDataURL('image/png');
+            photo.src = imageData;
+            photo.style.display = 'block';
+        });
+    }
+
+    // Load Pyodide and initialize Python environment
+    let pyodide = await loadPyodide();
+    await pyodide.loadPackage(['numpy', 'scipy']);
+
+    async function analyzeImage(imageData) {
+        // Python code to analyze the image
+        const pythonCode = `
+import numpy as np
+from scipy.spatial import KDTree
+
+def rgb_to_hex(rgb):
+    return '#{:02x}{:02x}{:02x}'.format(int(rgb[0]), int(rgb[1]), int(rgb[2]))
+
+# Define beetroot color and threshold for nitrate levels
+beetroot_color = np.array([138, 43, 226])
+thresholds = {
+    'High': np.array([255, 165, 0]),
+    'Medium': [np.array([255, 192, 203]), np.array([255, 255, 0])]
+}
+
+# Convert image data to numpy array
+data = np.frombuffer(imageData, dtype=np.uint8)
+data = data.reshape(-1, 4)[:, :3]  # Remove alpha channel if present
+
+# Find the mean color of the image
+mean_color = np.mean(data, axis=0)
+
+# Compare mean color with beetroot and thresholds
+tree = KDTree([beetroot_color] + thresholds['High'].tolist() + thresholds['Medium'][0].tolist() + thresholds['Medium'][1].tolist())
+dist, index = tree.query(mean_color)
+
+# Determine nitrate level based on color distance
+if np.array_equal(tree.data[index], thresholds['High']):
+    nitrate_level = 'High'
+elif np.array_equal(tree.data[index], thresholds['Medium'][0]) or np.array_equal(tree.data[index], thresholds['Medium'][1]):
+    nitrate_level = 'Medium'
+else:
+    nitrate_level = 'None'
+
+{
+    'mean_color': rgb_to_hex(mean_color),
+    'nitrate_level': nitrate_level
+}
+`;
+        let result = await pyodide.runPythonAsync(pythonCode, { imageData: imageData.buffer });
+        return result;
+    }
+});

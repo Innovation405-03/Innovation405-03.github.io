@@ -1,4 +1,3 @@
-<script>
 
     document.addEventListener('DOMContentLoaded', async function () {
     document.getElementById('currentYear').textContent = new Date().getFullYear();
@@ -220,4 +219,3 @@ else:
     let pyodide = await loadPyodide();
     await pyodide.loadPackage(['numpy', 'scipy']);
 });
-</script>

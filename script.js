@@ -139,7 +139,7 @@ thresholds = {
 }
 
 # Convert image data to numpy array
-data = np.frombuffer(imageData, dtype=np.uint8)
+data = np.frombuffer(imageData.data, dtype=np.uint8)
 data = data.reshape(-1, 4)[:, :3]  # Remove alpha channel if present
 
 # Find the mean color of the image
@@ -162,7 +162,7 @@ else:
     'nitrate_level': nitrate_level
 }
 `;
-            let result = await pyodide.runPythonAsync(pythonCode, { imageData: imageData.buffer });
+            let result = await pyodide.runPythonAsync(pythonCode, { imageData: imageData });
             return result;
         }
     }

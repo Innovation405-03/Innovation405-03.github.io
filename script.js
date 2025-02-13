@@ -172,22 +172,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Access the user's camera
         navigator.mediaDevices.getUserMedia({ video: true })
-            .then(stream => {
-                video.srcObject = stream;
-            })
-            .catch(error => {
-                console.error("Error accessing camera: ", error);
-            });
-
-        // Capture the image
-        captureButton.addEventListener('click', () => {
-            const context = canvas.getContext('2d');
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-            // Convert to image and display
-            const imageData = canvas.toDataURL('image/png');
-            photo.src = imageData;
-            photo.style.display = 'block';
-        });
-    }
-});
+            .then(stream =>)

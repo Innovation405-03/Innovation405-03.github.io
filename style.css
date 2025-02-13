@@ -9,6 +9,7 @@ body {
     min-height: 100vh;
     line-height: 1.6;
     box-sizing: border-box; /* Added to make box model consistent */
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 @font-face {
@@ -47,7 +48,7 @@ a {
     color: white;
     padding: 10px 20px;
     box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
-    position: fixed;
+    position: inherit;
     top: 0;
     left: 0;
     z-index: 1000;
@@ -100,8 +101,8 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 120px; /* Added extra space to avoid overlap with navbar */
-    margin-bottom: 80px; /* Ensure footer doesn't overlap */
+    margin-top: 120px; /* Ensure space for navbar */
+    margin-bottom: 80px; /* Ensure space for footer */
 }
 
 .footer {
@@ -109,7 +110,7 @@ a {
     color: white;
     text-align: center;
     padding: 20px;
-    position: fixed;
+    position: inherit;
     bottom: 0;
     width: 100%;
 }
@@ -198,11 +199,6 @@ button:hover {
         font-size: 20px;
     }
 
-    .content {
-        padding: 10px;
-        margin-top: 120px; /* Adjust space for navbar */
-    }
-
     .footer {
         padding: 10px;
     }
@@ -220,6 +216,14 @@ button:hover {
 
 /* Specific styles for even smaller screens (smartphones) */
 @media (max-width: 400px) {
+    .navbar{
+        position: inherit;
+    }
+
+    .footer{
+        position: inherit;
+    }
+
     .navbar ul {
         justify-content: space-evenly;
     }
@@ -230,11 +234,6 @@ button:hover {
 
     .header {
         font-size: 22px;
-    }
-
-    .content {
-        padding: 15px;
-        margin-top: 120px; /* Adjust content margin */
     }
 
     .footer {

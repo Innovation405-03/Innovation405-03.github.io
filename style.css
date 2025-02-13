@@ -1,3 +1,4 @@
+/* General Body Styles */
 body {
     font-family: Kanit-light;
     margin: 0;
@@ -7,31 +8,39 @@ body {
     flex-direction: column;
     min-height: 100vh;
     line-height: 1.6;
+    box-sizing: border-box; /* Added to make box model consistent */
 }
-@font-face{
-    font-family:Kanit-light;
-    src:url('font/kanit/Kanit-Light.ttf');
+
+@font-face {
+    font-family: Kanit-light;
+    src: url('font/kanit/Kanit-Light.ttf');
 }
-a{
-    font-weight:bold;
+
+a {
+    font-weight: bold;
 }
+
 .container {
     display: flex;
     justify-content: space-between;
     gap: 20px;
     max-width: 900px;
     margin: auto;
+     /* Allow content to wrap for smaller screens */
 }
-.Title{
+
+.Title {
     font-family: Kanit-light;
-    font-size:20px;
+    font-size: 20px;
     font-weight: bold;
 }
-.analysis{
-    width:fit-content;
-    height:20;
+
+.analysis {
+    width: fit-content;
+    height: 20px;
     border: #fff;
 }
+
 .navbar {
     width: 100%;
     background: #007BFF;
@@ -82,7 +91,7 @@ a{
     font-size: 24px;
     font-weight: bold;
     box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
-    margin-top: 100px; /* Adjust according to the height of the navbar */
+    margin-top: 100px;
 }
 
 .content {
@@ -91,7 +100,7 @@ a{
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 80px; /* To ensure content is not overlapped */
+    margin-top: 80px;
 }
 
 .footer {
@@ -104,7 +113,7 @@ a{
     width: 100%;
 }
 
-/* New styles for enhancing content */
+/* Enhanced content styles */
 .content h1,
 .content p,
 .content ul,
@@ -169,6 +178,7 @@ button:hover {
     color: white;
 }
 
+/* Media Queries */
 @media (max-width: 768px) {
     .navbar ul {
         flex-direction: column;
@@ -193,6 +203,15 @@ button:hover {
 
     .footer {
         padding: 10px;
+    }
+
+    /* Adjust card width and margins for smaller screens */
+    .card {
+        max-width: 100%;
+        margin: 10px 0;
+    }
+    .container{
+        flex-wrap: wrap;
     }
 }
 

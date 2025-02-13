@@ -24,8 +24,10 @@
 
     <div class="header" id="headerText">Color Detection Tool</div>
     <div class="content centered-content">
-        <input type="file" id="fileInput" accept="image/*">
-        <button id="captureFromCamera">Capture from Camera</button>
+        <div class="card">
+            <input type="file" id="fileInput" accept="image/*">
+            <button id="captureFromCamera">Capture from Camera</button>
+        </div>
         <video id="video" width="320" height="240" autoplay style="display:none;"></video>
         <canvas id="canvas" width="320" height="240" style="display:none;"></canvas>
         <div id="colorBox"></div>

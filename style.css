@@ -57,7 +57,7 @@ body {
 }
 
 .navbar .language-toggle button {
-    background: #0056b3;
+    background: #007BFF;
     color: #ffffff;
     border: none;
     padding: 10px;
@@ -67,7 +67,7 @@ body {
 }
 
 .navbar .language-toggle button:hover {
-    background: #0056b3;
+    background: #007BFF;
     color: #ffffff;
 }
 

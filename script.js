@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                         context.drawImage(img, 0, 0, img.width, img.height);
                         const imageData = context.getImageData(0, 0, img.width, img.height);
 
-                        // Run Python code using Pyodide
+                        // Run Python code using Pyodide to analyze the image
                         analyzeImage(imageData).then(result => {
                             const color = result.mean_color;
                             const nitrateLevel = result.nitrate_level;

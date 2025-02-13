@@ -1,5 +1,5 @@
 
-    document.addEventListener('DOMContentLoaded', async function () {
+document.addEventListener('DOMContentLoaded', async function () {
     document.getElementById('currentYear').textContent = new Date().getFullYear();
 
     const languageToggle = document.getElementById('languageToggle');

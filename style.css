@@ -26,7 +26,7 @@ a {
     gap: 20px;
     max-width: 900px;
     margin: auto;
-     /* Allow content to wrap for smaller screens */
+    /* Allow content to wrap for smaller screens */
 }
 
 .Title {
@@ -100,7 +100,8 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 80px;
+    margin-top: 120px; /* Added extra space to avoid overlap with navbar */
+    margin-bottom: 80px; /* Ensure footer doesn't overlap */
 }
 
 .footer {
@@ -199,6 +200,7 @@ button:hover {
 
     .content {
         padding: 10px;
+        margin-top: 120px; /* Adjust space for navbar */
     }
 
     .footer {
@@ -210,12 +212,14 @@ button:hover {
         max-width: 100%;
         margin: 10px 0;
     }
-    .container{
+
+    .container {
         flex-wrap: wrap;
     }
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
+/* Specific styles for even smaller screens (smartphones) */
+@media (max-width: 400px) {
     .navbar ul {
         justify-content: space-evenly;
     }
@@ -230,6 +234,7 @@ button:hover {
 
     .content {
         padding: 15px;
+        margin-top: 120px; /* Adjust content margin */
     }
 
     .footer {

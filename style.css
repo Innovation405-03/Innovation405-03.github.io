@@ -48,7 +48,7 @@ a {
     color: white;
     padding: 10px 20px;
     box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
-    position: inherit;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 1000;
@@ -110,7 +110,7 @@ a {
     color: white;
     text-align: center;
     padding: 20px;
-    position: inherit;
+    position: fixed;
     bottom: 0;
     width: 100%;
 }
@@ -212,16 +212,22 @@ button:hover {
     .container {
         flex-wrap: wrap;
     }
+
+    /* Adjust content layout for tablet screens */
+    .content {
+        margin-top: 150px; /* Space for fixed navbar */
+        margin-bottom: 100px; /* Space for fixed footer */
+    }
 }
 
 /* Specific styles for even smaller screens (smartphones) */
 @media (max-width: 400px) {
-    .navbar{
-        position: inherit;
+    .navbar {
+        position: fixed; /* Ensure navbar is fixed on small screens */
     }
 
-    .footer{
-        position: inherit;
+    .footer {
+        position: fixed; /* Ensure footer is fixed on small screens */
     }
 
     .navbar ul {
@@ -238,5 +244,22 @@ button:hover {
 
     .footer {
         padding: 15px;
+    }
+
+    /* Adjust content layout and spacing for smartphones */
+    .content {
+        padding: 15px;
+        margin-top: 150px; /* Space for fixed navbar */
+        margin-bottom: 100px; /* Space for fixed footer */
+    }
+
+    .container {
+        flex-direction: column; /* Stack the content for small screens */
+        padding: 10px;
+    }
+
+    .card {
+        margin: 10px 0;
+        max-width: 100%;
     }
 }

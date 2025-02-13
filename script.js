@@ -94,13 +94,19 @@ document.addEventListener('DOMContentLoaded', async function () {
                         canvas.height = img.height;
                         context.drawImage(img, 0, 0, img.width, img.height);
                         const imageData = context.getImageData(0, 0, img.width, img.height);
-                        const color = getColorFromImage(imageData);
-                        colorBox.style.backgroundColor = color;
-                        colorValue.textContent = `Color: ${color}`;
-                        const nitrateLevel = getNitrateLevel(color);
-                        nitrateValue.textContent = `Nitrate Level: ${nitrateLevel}`;
-                        saveData.addEventListener('click', () => {
-                            saveResultToLocalStorage(color, nitrateLevel);
+
+                        // Run Python code using Pyodide
+                        analyzeImage(imageData).then(result => {
+                            const color = result.mean_color;
+                            const nitrateLevel = result.nitrate_level;
+
+                            colorBox.style.backgroundColor = color;
+                            colorValue.textContent = `Color: ${color}`;
+                            nitrateValue.textContent = `Nitrate Level: ${nitrateLevel}`;
+
+                            saveData.addEventListener('click', () => {
+                                saveResultToLocalStorage(color, nitrateLevel);
+                            });
                         });
                     };
                     img.src = e.target.result;
@@ -109,38 +115,55 @@ document.addEventListener('DOMContentLoaded', async function () {
             }
         });
 
-        function getColorFromImage(imageData) {
-            const data = imageData.data;
-            let r = 0, g = 0, b = 0, count = 0;
-            for (let i = 0; i < data.length; i += 4) {
-                r += data[i];
-                g += data[i + 1];
-                b += data[i + 2];
-                count++;
-            }
-            r = Math.floor(r / count);
-            g = Math.floor(g / count);
-            b = Math.floor(b / count);
-            return `rgb(${r}, ${g}, ${b})`;
-        }
-
-        function getNitrateLevel(color) {
-            if (color === 'rgb(255, 255, 0)' || color === 'rgb(255, 192, 203)') {
-                return 'Medium';
-            } else if (color === 'rgb(255, 165, 0)') {
-                return 'High';
-            } else if (color === 'rgb(139, 0, 0)') {
-                return 'None';
-            } else {
-                return 'Unknown';
-            }
-        }
-
         function saveResultToLocalStorage(color, nitrateLevel) {
             const results = JSON.parse(localStorage.getItem('nitrateResults')) || [];
             const timestamp = new Date().toISOString();
             results.push({ color, nitrateLevel, timestamp });
             localStorage.setItem('nitrateResults', JSON.stringify(results));
+        }
+
+        async function analyzeImage(imageData) {
+            // Python code to analyze the image
+            const pythonCode = `
+import numpy as np
+from scipy.spatial import KDTree
+
+def rgb_to_hex(rgb):
+    return '#{:02x}{:02x}{:02x}'.format(int(rgb[0]), int(rgb[1]), int(rgb[2]))
+
+# Define beetroot color and threshold for nitrate levels
+beetroot_color = np.array([138, 43, 226])
+thresholds = {
+    'High': np.array([255, 165, 0]),
+    'Medium': [np.array([255, 192, 203]), np.array([255, 255, 0])]
+}
+
+# Convert image data to numpy array
+data = np.frombuffer(imageData, dtype=np.uint8)
+data = data.reshape(-1, 4)[:, :3]  # Remove alpha channel if present
+
+# Find the mean color of the image
+mean_color = np.mean(data, axis=0)
+
+# Compare mean color with beetroot and thresholds
+tree = KDTree([beetroot_color] + thresholds['High'].tolist() + thresholds['Medium'][0].tolist() + thresholds['Medium'][1].tolist())
+dist, index = tree.query(mean_color)
+
+# Determine nitrate level based on color distance
+if np.array_equal(tree.data[index], thresholds['High']):
+    nitrate_level = 'High'
+elif np.array_equal(tree.data[index], thresholds['Medium'][0]) or np.array_equal(tree.data[index], thresholds['Medium'][1]):
+    nitrate_level = 'Medium'
+else:
+    nitrate_level = 'None'
+
+{
+    'mean_color': rgb_to_hex(mean_color),
+    'nitrate_level': nitrate_level
+}
+`;
+            let result = await pyodide.runPythonAsync(pythonCode, { imageData: imageData.buffer });
+            return result;
         }
     }
 
@@ -194,48 +217,4 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Load Pyodide and initialize Python environment
     let pyodide = await loadPyodide();
     await pyodide.loadPackage(['numpy', 'scipy']);
-
-    async function analyzeImage(imageData) {
-        // Python code to analyze the image
-        const pythonCode = `
-import numpy as np
-from scipy.spatial import KDTree
-
-def rgb_to_hex(rgb):
-    return '#{:02x}{:02x}{:02x}'.format(int(rgb[0]), int(rgb[1]), int(rgb[2]))
-
-# Define beetroot color and threshold for nitrate levels
-beetroot_color = np.array([138, 43, 226])
-thresholds = {
-    'High': np.array([255, 165, 0]),
-    'Medium': [np.array([255, 192, 203]), np.array([255, 255, 0])]
-}
-
-# Convert image data to numpy array
-data = np.frombuffer(imageData, dtype=np.uint8)
-data = data.reshape(-1, 4)[:, :3]  # Remove alpha channel if present
-
-# Find the mean color of the image
-mean_color = np.mean(data, axis=0)
-
-# Compare mean color with beetroot and thresholds
-tree = KDTree([beetroot_color] + thresholds['High'].tolist() + thresholds['Medium'][0].tolist() + thresholds['Medium'][1].tolist())
-dist, index = tree.query(mean_color)
-
-# Determine nitrate level based on color distance
-if np.array_equal(tree.data[index], thresholds['High']):
-    nitrate_level = 'High'
-elif np.array_equal(tree.data[index], thresholds['Medium'][0]) or np.array_equal(tree.data[index], thresholds['Medium'][1]):
-    nitrate_level = 'Medium'
-else:
-    nitrate_level = 'None'
-
-{
-    'mean_color': rgb_to_hex(mean_color),
-    'nitrate_level': nitrate_level
-}
-`;
-        let result = await pyodide.runPythonAsync(pythonCode, { imageData: imageData.buffer });
-        return result;
-    }
 });

@@ -225,6 +225,9 @@ button:hover {
         margin-top: 150px; /* Space for fixed navbar */
         margin-bottom: 100px; /* Space for fixed footer */
     }
+    .content index-content{
+        flex-direction: column;
+    }
 }
 
 /* Specific styles for even smaller screens (smartphones) */
@@ -269,5 +272,8 @@ button:hover {
         margin: 10px 0;
         max-width: 100%;
         padding: 10px; /* Further reduce padding for smaller screens */
+    }
+    .content index-content{
+        flex-direction: column;
     }
 }

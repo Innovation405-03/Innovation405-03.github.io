@@ -17,9 +17,9 @@ body {
     src: url('font/kanit/Kanit-Light.ttf');
 }
 
-.pic {
-    width: 100%; /* Make images responsive */
-    height: auto; /* Adjust image height proportionally */
+.pic{
+    width:400px;
+    height:340px;
 }
 
 a {
@@ -32,7 +32,7 @@ a {
     gap: 20px;
     max-width: 900px;
     margin: auto;
-    flex-wrap: wrap; /* Allow content to wrap on smaller screens */
+    /* Allow content to wrap for smaller screens */
 }
 
 .Title {
@@ -99,13 +99,12 @@ a {
     box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
     margin-top: 100px;
 }
-
 .content {
-    width: fit-content;
+    width:fit-content;
     padding: 20px;
     flex-grow: 1;
     display: flex;
-    flex-direction: column;
+    flex-direction :column;
     align-items: center;
     margin-top: 120px; /* Ensure space for navbar */
     margin-bottom: 80px; /* Ensure space for footer */
@@ -213,6 +212,7 @@ button:hover {
     .card {
         max-width: 100%;
         margin: 10px 0;
+        
     }
 
     .container {
@@ -225,8 +225,12 @@ button:hover {
         margin-top: 150px; /* Space for fixed navbar */
         margin-bottom: 100px; /* Space for fixed footer */
     }
+    .content index-content{
+        flex-direction: column;
+    }
 }
 
+/* Specific styles for even smaller screens (smartphones) */
 @media (max-width: 400px) {
     .navbar {
         position: fixed; /* Ensure navbar is fixed on small screens */
@@ -269,44 +273,7 @@ button:hover {
         max-width: 100%;
         padding: 10px; /* Further reduce padding for smaller screens */
     }
-}
-/* ปรับขนาดปุ่มให้เหมาะสมกับหน้าจอเล็ก */
-input, button {
-    margin-bottom: 10px;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background: white;
-    cursor: pointer;
-    transition: background 0.3s;
-    width: 100%; /* ให้ปุ่มขยายเต็มความกว้าง */
-    max-width: 100%; /* ปรับให้ปุ่มยืดเต็มหน้าจอ */
-}
-
-/* ปรับในกรณีที่หน้าจอมีความกว้างไม่เกิน 768px */
-@media (max-width: 768px) {
-    button {
-        padding: 15px; /* ปรับขนาด padding ให้ใหญ่ขึ้นในหน้าจอเล็ก */
-    }
-}
-
-/* ปรับในกรณีที่หน้าจอมีความกว้างไม่เกิน 400px */
-@media (max-width: 400px) {
-    button {
-        padding: 12px; /* ปรับ padding เล็กน้อยสำหรับโทรศัพท์ */
-    }
-}
-/* Media Queries */
-@media (max-width: 768px) {
-    .card {
-        padding: 15px; /* ลด padding สำหรับหน้าจอเล็ก */
-        margin: 10px 0; /* ลด margin */
-    }
-}
-
-@media (max-width: 400px) {
-    .card {
-        padding: 10px; /* ลด padding สำหรับหน้าจอเล็กที่สุด */
-        margin: 5px 0; /* ลด margin สำหรับมือถือ */
+    .content index-content{
+        width:auto;
     }
 }

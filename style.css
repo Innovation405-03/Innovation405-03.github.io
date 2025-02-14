@@ -48,7 +48,7 @@ a {
     color: white;
     padding: 10px 20px;
     box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
-    position: inherit;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 1000;
@@ -110,7 +110,7 @@ a {
     color: white;
     text-align: center;
     padding: 20px;
-    position: inherit;
+    position: fixed;
     bottom: 0;
     width: 100%;
 }

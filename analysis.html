@@ -21,7 +21,7 @@
         </ul>
     </div>
     <div class="content centered-content">
-        <div class="card">
+        <div class="card" style="width:445px;">
             <center><h2>วิเคราะห์สี</h2></center>
         </div>
         <div class="card">
@@ -34,17 +34,17 @@
                     <button id="analyzeData" style="background-color: #333; color:#fff; font-weight:bold;">🔍 Analyze</button>
                 </center>
             </div>
-        </div>
-        <video id="video" width="320" height="240" autoplay style="display:none;"></video>
-        <canvas id="canvas" width="320" height="240" style="display:none;"></canvas>
-        <div id="colorBox"></div>
-        <div class="card">
-            <p id="colorValue">Color: N/A</p>
+            <div>
+                <p id="colorValue">Color: N/A</p>
             <p id="nitrateValue">Nitrate Level: N/A</p>
             <center>
                 <button id="saveData" style="background-color: #333; color:#fff; font-weight:bold;">💾 Save Data</button>
             </center>
+            </div>
         </div>
+        <video id="video" width="320" height="240" autoplay style="display:none;"></video>
+        <canvas id="canvas" width="320" height="240" style="display:none;"></canvas>
+        <div id="colorBox"></div>
     </div>
     <div class="footer">
         &copy; <span id="currentYear"></span>

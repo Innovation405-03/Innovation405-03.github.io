@@ -17,6 +17,11 @@ body {
     src: url('font/kanit/Kanit-Light.ttf');
 }
 
+.pic{
+    width:400px;
+    height:340px;
+}
+
 a {
     font-weight: bold;
 }

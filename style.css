@@ -274,6 +274,6 @@ button:hover {
         padding: 10px; /* Further reduce padding for smaller screens */
     }
     .content index-content{
-        flex-direction: column;
+        width:auto;
     }
 }

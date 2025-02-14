@@ -270,3 +270,29 @@ button:hover {
         padding: 10px; /* Further reduce padding for smaller screens */
     }
 }
+/* ปรับขนาดปุ่มให้เหมาะสมกับหน้าจอเล็ก */
+input, button {
+    margin-bottom: 10px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: white;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 100%; /* ให้ปุ่มขยายเต็มความกว้าง */
+    max-width: 100%; /* ปรับให้ปุ่มยืดเต็มหน้าจอ */
+}
+
+/* ปรับในกรณีที่หน้าจอมีความกว้างไม่เกิน 768px */
+@media (max-width: 768px) {
+    button {
+        padding: 15px; /* ปรับขนาด padding ให้ใหญ่ขึ้นในหน้าจอเล็ก */
+    }
+}
+
+/* ปรับในกรณีที่หน้าจอมีความกว้างไม่เกิน 400px */
+@media (max-width: 400px) {
+    button {
+        padding: 12px; /* ปรับ padding เล็กน้อยสำหรับโทรศัพท์ */
+    }
+}

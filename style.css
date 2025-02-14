@@ -296,3 +296,17 @@ input, button {
         padding: 12px; /* ปรับ padding เล็กน้อยสำหรับโทรศัพท์ */
     }
 }
+/* Media Queries */
+@media (max-width: 768px) {
+    .card {
+        padding: 15px; /* ลด padding สำหรับหน้าจอเล็ก */
+        margin: 10px 0; /* ลด margin */
+    }
+}
+
+@media (max-width: 400px) {
+    .card {
+        padding: 10px; /* ลด padding สำหรับหน้าจอเล็กที่สุด */
+        margin: 5px 0; /* ลด margin สำหรับมือถือ */
+    }
+}
